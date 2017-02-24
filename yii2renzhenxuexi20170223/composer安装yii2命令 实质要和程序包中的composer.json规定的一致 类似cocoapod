@@ -1,0 +1,89 @@
+composer安装yii2命令 实质要和程序包中的composer.json规定的一致 类似cocoapod
+
+
+
+yii2 经常使用的工具 第一 composer 第二 debug工具 第三 gii
+
+composer yii2 要使用的程序包  比如 swiftmailer FPDF
+
+//使用前 先到composer官网 看如何安装composer命令
+
+php composer.phar require yiisoft/yii2-gii 2.0.4
+
+//composer install
+
+php composer install
+
+//composer 只管理php相关的程序包 但是js等管理的并不好
+// composer create-project
+
+composer create-project yiisoft/yii2-app-basic basic2
+//因此安装出现jquery等有问题报错时 应该 在运行上面的命令之前 先运行以下命令
+composer global require "fxp/composer-asset-plugin:^1.2.0"
+
+
+
+第二 使用 composer 安装  yiisoft/yiidebug了 debug工具
+
+yii应用 入口文件 http://localhost/index.php?r=debug 访问该工具
+
+对于每条网站请求的错误debug记录
+
+数据库查询记录
+
+session 使用记录
+
+请求参数  请求头文件
+
+email 使用记录 都会有记录
+
+
+使用debug工具可以检测应用程序性能 检查sql语句执行时间
+
+profilling 检测程序中某一个片段 运行时间
+
+\YII:beginProfile('profile1')
+
+\YII:endProfile('profile1')
+
+
+第三 gii工具 a magical tool that can write code for you
+
+ http://localhost/index.php?r=gii
+
+
+ 第三 使用：：：：
+CRUD Generator
+
+使用场景
+
+Form Generator
+
+第一个关系到的类 活动记录
+
+app\models 下 放置活动记录管理类
+
+活动记录的关键方法  场景管理 关系到load 方法
+
+curd 是帮助我们对数据库中某一个数据库表增删改查
+
+ModelClass 活动记录数据模型 app\models\Test 这个类是依据生成代码模版的依据 需要自己写代码
+主要写清活动记录应用场景 和 活动记录 相关的数据库的表名 其他随意
+
+SearchModelClass 也是增删 app\models\TestSearch
+
+ControllerClass app\controllers\TestController
+
+
+ViewPath 默认情况下 在view 下根据控制器的名字 默认创建 可以不写
+
+第三 使用：：：FormGenerator
+
+
+表单生成器  widget 表示 小部件的意思
+
+浏览网页时 一些布局 会出现在多个页面中 比如说导航条
+
+像这样 一个元素 在多个页面出现 我们就一次编写 多处使用
+
+写小部件

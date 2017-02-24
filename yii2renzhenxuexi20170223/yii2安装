@@ -1,0 +1,126 @@
+
+第一：
+由于使用composer 安装失败
+
+bogon:yii2renzhenxuexi20170223 admindyn$ composer create-project --prefer-dist ./ helloworld
+You are running composer with xdebug enabled. This has a major impact on runtime performance. See https://getcomposer.org/xdebug
+
+
+  [Composer\Exception\NoSslException]
+  The openssl extension is required for SSL/TLS protection but is not availab
+  le. If you can not enable the openssl extension, you can disable this error
+  , at your own risk, by setting the 'disable-tls' option to true.
+
+
+create-project [-s|--stability STABILITY] [--prefer-source] [--prefer-dist] [--repository REPOSITORY] [--repository-url REPOSITORY-URL] [--dev] [--no-dev] [--no-custom-installers] [--no-scripts] [--no-progress] [--no-secure-http] [--keep-vcs] [--no-install] [--ignore-platform-reqs] [--] [<package>] [<directory>] [<version>]
+
+bogon:yii2renzhenxuexi20170223 admindyn$ composer create-project --prefer-dist ./ helloworld
+
+
+到终端检查 发现openssl命令正常  已经安装openssl
+
+bogon:yii2renzhenxuexi20170223 admindyn$ openssl version -a
+OpenSSL 0.9.8zh 14 Jan 2016
+built on: Oct  5 2016
+platform: darwin64-x86_64-llvm
+options:  bn(64,64) md2(int) rc4(ptr,char) des(idx,cisc,16,int) blowfish(idx)
+compiler: -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O3 -D_REENTRANT -DDSO_DLFCN -DHAVE_DLFCN_H -DL_ENDIAN -DMD32_REG_T=int -DOPENSSL_NO_IDEA -DOPENSSL_PIC -DOPENSSL_THREADS -DZLIB -mmacosx-version-min=10.6
+OPENSSLDIR: "/System/Library/OpenSSL"
+bogon:yii2renzhenxuexi20170223 admindyn$
+
+但这是系统自带的openssl版本
+bogon:yii2renzhenxuexi20170223 admindyn$ brew list
+autoconf	icu4c		libxml2		pcre		watchman
+automake	imap-uw		libyaml		php70		x264
+bison		jpeg		mcrypt		pkg-config	xvid
+dnvm		lame		mhash		postgresql	yasm
+ffmpeg		libgpg-error	mono		re2c
+flow		libksba		nginx		readline
+freetype	libpng		openssl		unixodbc
+gettext		libtool		openssl@1.1	unrar
+bogon:yii2renzhenxuexi20170223 admindyn$
+
+brew检查 发现之前有安装最新的openssl 配置到系统环境
+
+依旧不行 需要给php配置openssl扩展 太费时间 有时间再扩展 先研究yii2
+
+检查安装目录
+bogon:yii2renzhenxuexi20170223 admindyn$ cd /usr/local/Cellar/
+bogon:Cellar admindyn$ ls -la
+total 0
+drwxrwxr-x  38 admindyn  admin  1292  2 13 17:28 .
+drwxr-xr-x  27 root      wheel   918  2 22 17:45 ..
+drwxr-xr-x   3 admindyn  admin   102 11 16 12:56 autoconf
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:01 automake
+drwxr-xr-x   3 admindyn  admin   102 11 30 15:53 bison
+drwxr-xr-x   3 admindyn  admin   102 11 16 15:19 dnvm
+drwxr-xr-x   3 admindyn  admin   102 11 16 17:06 ffmpeg
+drwxr-xr-x   3 admindyn  admin   102  2 13 17:28 flow
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:04 freetype
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:28 gettext
+drwxr-xr-x   3 admindyn  admin   102 11 16 12:57 icu4c
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:46 imap-uw
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:12 jpeg
+drwxr-xr-x   3 admindyn  admin   102 11 16 17:05 lame
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:08 libgpg-error
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:08 libksba
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:04 libpng
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:37 libtool
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:59 libxml2
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:44 libyaml
+drwxr-xr-x   3 admindyn  admin   102 11 30 16:47 mcrypt
+drwxr-xr-x   3 admindyn  admin   102 11 30 16:47 mhash
+drwxr-xr-x   3 admindyn  admin   102 11 16 15:19 mono
+drwxr-xr-x   3 admindyn  admin   102 11 16 14:07 nginx
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:18 openssl
+drwxr-xr-x   3 admindyn  admin   102 11 16 14:07 openssl@1.1
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:14 pcre
+drwxr-xr-x   3 admindyn  admin   102 11 16 14:04 php70
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:23 pkg-config
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:31 postgresql
+drwxr-xr-x   3 admindyn  admin   102 11 30 15:51 re2c
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:25 readline
+drwxr-xr-x   3 admindyn  admin   102 11 16 13:32 unixodbc
+drwxr-xr-x   3 admindyn  admin   102 12 22 09:36 unrar
+drwxr-xr-x   3 admindyn  admin   102 12 28 11:29 watchman
+drwxr-xr-x   3 admindyn  admin   102 11 16 17:05 x264
+drwxr-xr-x   3 admindyn  admin   102 11 16 17:05 xvid
+drwxr-xr-x   3 admindyn  admin   102 11 18 11:53 yasm
+bogon:Cellar admindyn$
+
+为系统环境添加新的openssl命令后
+bogon:etc admindyn$ echo $OPENSSL_PATH
+/usr/local/Cellar/openssl/1.0.2j/bin
+bogon:etc admindyn$ openssl version -a
+OpenSSL 1.0.2j  26 Sep 2016
+built on: reproducible build, date unspecified
+platform: darwin64-x86_64-cc
+options:  bn(64,64) rc4(ptr,int) des(idx,cisc,16,int) idea(int) blowfish(idx)
+compiler: clang -I. -I.. -I../include  -fPIC -fno-common -DOPENSSL_PIC -DZLIB_SHARED -DZLIB -DOPENSSL_THREADS -D_REENTRANT -DDSO_DLFCN -DHAVE_DLFCN_H -arch x86_64 -O3 -DL_ENDIAN -Wall -DOPENSSL_IA32_SSE2 -DOPENSSL_BN_ASM_MONT -DOPENSSL_BN_ASM_MONT5 -DOPENSSL_BN_ASM_GF2m -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DMD5_ASM -DAES_ASM -DVPAES_ASM -DBSAES_ASM -DWHIRLPOOL_ASM -DGHASH_ASM -DECP_NISTZ256_ASM
+OPENSSLDIR: "/usr/local/etc/openssl"
+bogon:etc admindyn$
+
+
+第二：
+
+到github获取yii2源码安装
+
+通过https://github.com/yiisoft/yii2/releases/download/2.0.8/yii-basic-app-2.0.8.tgz
+
+下载yii2的基本的应用程序包 模版
+
+
+第三 安装有basic版 也有advanced高级版
+
+高级版有init脚本 需要运行init才能为项目下的前端 或 后端的
+web目录下生成index.php
+（前台：frontend 目录，后台：backend，官方下载的源码中是缺失配置文件和index.php，需要执行init。
+
+                   执行init之前需要确保php>5.4，openssl开启。
+                   ）
+但是basic版 不需要 下载下来就带的有
+但是basic版 运行报错 解决 需要：：
+
+打开文件：config/web.php，找到 'cookieValidationKey' => '', (大概在第12行)，随便写上一个值，这里我随便修改为：
+
+'cookieValidationKey' => 'yiibai.com', 就可以了

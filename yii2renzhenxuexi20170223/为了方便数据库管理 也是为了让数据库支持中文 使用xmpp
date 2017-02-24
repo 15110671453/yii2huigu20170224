@@ -1,0 +1,67 @@
+安装xmpp
+
+启动服务
+发现ftp启动了
+
+但是数据库服务器没有启动
+
+apache服务器没有启动
+
+因此 检查
+
+第一 数据库服务
+
+关闭 之前的数据库服务
+
+到 mac 设置 中 找到mysql 关闭了 mysql服务器
+
+然后 通过xmpp重新启动服务
+
+但是要修改xmpp启动数据库服务要使用的
+数据库配置文件
+
+添加我们之前使用的数据库 用户名
+
+数据库 密码 数据库端口号
+
+但是这里需要注意 数据库的sock路径要不要
+
+也写到我们之前的路径下呢 有必要 要不然报错
+
+至少命令行就无法使用mysql命令了
+
+Last login: Fri Feb 24 15:28:33 on ttys000
+12345678901234567:~ admindyn$ mysql -u root -p
+Enter password:
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)
+12345678901234567:~ admindyn$
+
+
+php执行也错误 应该也和php与mysql sock 通信失败有关
+
+不得已只好修改了 xmppmysql 服务的端口号 发现 机子开启了两个mysql服务 。。。。
+
+第二 apache服务启动失败
+
+12345678901234567:bin admindyn$ httpd -k start
+(13)Permission denied: AH00072: make_sock: could not bind to address [::]:80
+(13)Permission denied: AH00072: make_sock: could not bind to address 0.0.0.0:80
+no listening sockets available, shutting down
+AH00015: Unable to open logs
+12345678901234567:bin admindyn$ vi /Applications/XAMPP/xamppfiles/apache2/scripts/ctl.sh
+12345678901234567:bin admindyn$ which httpd
+/usr/sbin/httpd
+12345678901234567:bin admindyn$
+
+
+原来是因为 机子原先 装过 httpd 因此xampp 启动脚本使用的httpd 不是它自己的命令
+
+所以启动不起来 修改 环境变量
+原以为 是这个原因 发现 并不是 检查xampp启动httpd的脚本 发现 已经指明了httpd路径
+是自己的httpd 那是什么原因呢
+
+
+第三
+
+插播 回忆 ffmpeg 视频处理 库
+

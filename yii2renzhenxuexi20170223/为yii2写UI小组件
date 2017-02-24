@@ -1,0 +1,8 @@
+第一步 先
+写小组件类
+该类 继承 use yii\base\Widget;
+并给它命名空间
+namespace app\components;
+// 放到命名空间  但是命名空间 要和文件路径 生成components文件夹 把该文件放在该目录下
+use yii\base\Widget;
+

@@ -1,0 +1,85 @@
+最近我们打算在php框架中使用composer来管理依赖关系，
+但是在执行composer的安装命令时（如下），发现系统提示没有安装openssl扩展类库。
+
+安装composer命令：
+
+sudocurl -s https://getcomposer.org/installer | sudo php
+
+异常如下：
+Some settings onyour machine make Composer unable to work properly.
+
+Make sure thatyou fix the issues listed below and run this script again:
+
+
+The opensslextension is missing, which means that secure HTTPS transfers areimpossible.
+
+If possible youshould enable it or recompile php with --with-openssl
+
+
+看到这个异常，应该是我的php在编译的过程中没有增加-with-openssl选项造成的。
+但是在网上搜索相关问题时，发现我们不需要重新编译php环境，
+可以借助phpize来只编译openssl.so文件，并把该文件添加到php.ini文件中的。
+
+
+
+1.环境
+
+1)操作系统：
+
+Linuxubuntu 3.13.0-24-generic #46-Ubuntu SMP Thu Apr 10 19:11:08 UTC 2014x86_64 x86_64 x86_64 GNU/Linux
+
+2)php源码目录：
+
+/home/wuguowei/software/php-5.5.14_source
+
+3)php编译后的目录：
+
+/home/wuguowei/software/php5.5
+
+2.步骤
+
+先下载openssl开发包源码 到源码目录
+
+#从源码目录拷贝openssl目录到编译后的目录文件中
+
+sudocp -r /home/wuguowei/software/php-5.5.14_source/ext/openssl /home/wuguowei/software/php5.5/include/php/ext
+
+#进入ext中
+
+cd/home/wuguowei/software/php5.5/include/php/ext
+
+#依次执行如下代码
+
+/home/wuguowei/software/php5.5/bin/phpize
+
+./configure--with-openssl–with-php-config=/home/wuguowei/software/php5.5/bin/php-config
+
+make&& make install
+
+#找到php.ini文件（通常在/etc/php.in）中的“DynamicExtensions”的内容，在末尾添加上“extension= openssl.so”
+
+/usr/local/Cellar/php70/7.0.12_5/lib/php/extensions/no-debug-non-zts-20151012
+
+#重启php服务器即可
+
+#查看编译后的openssl的方法
+
+php-i |grep 'openssl'
+
+正确的结果如下：
+
+root@ubuntu:/home/wuguowei/software/composer#php -i |grep openssl
+
+openssl
+
+OLDPWD=> /home/wuguowei/software/php5.5/include/php/ext/openssl
+
+_SERVER["OLDPWD"]=> /home/wuguowei/software/php5.5/include/php/ext/openssl
+
+
+
+#查看php命令在哪儿的命令
+
+whereis php
+
+which php

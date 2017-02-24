@@ -1,0 +1,170 @@
+./configure
+ --prefix=/usr/local/php7.1.2
+  --exec-prefix=/usr/local/php7.1.2
+  --datadir=/usr/local/php7.1.2
+  -enable-bcmath -enable-calendar -enable-dba -enable-exif
+  -enable-ftp -enable-gd-native-ttf -enable-mbregex
+  -enable-mbstring -enable-shmop -enable-soap -enable-sockets
+  -enable-sysvmsg -enable-sysvsem -enable-sysvshm -enable-wddx
+  -enable-zip  --with-mysqli=mysqlnd --with-mhash --with-readline
+  --with-pdo-mysql=mysqlnd --with-fpm-user=php --with-fpm-group=php
+   --with-gd --with-iconv --enable-mbstring --enable-fpm
+   --enable-mysqlnd --with-curl --enable-session
+   --with-mysql=shared,mysqlnd --enable-zip --with-gettext
+   --with-openssl
+   --with-mysql-sock=/usr/local/php7.1.2/mysqlsockphp7.1.2
+ --with-pgsql --enable-mysqlnd
+
+ //
+ ./configure --prefix=/usr/local/php7.1.2 --exec-prefix=/usr/local/php7.1.2 --datadir=/usr/local/php7.1.2 --with-config-file-path=/usr/local/php7.1.2/etc -enable-bcmath -enable-calendar -enable-dba -enable-exif -enable-ftp -enable-gd-native-ttf -enable-mbregex -enable-mbstring -enable-shmop -enable-soap -enable-sockets -enable-sysvmsg -enable-sysvsem -enable-sysvshm -enable-wddx -enable-zip  --with-mysqli=mysqlnd --with-mhash --with-readline   --with-pdo-mysql=mysqlnd --with-fpm-user=php --with-fpm-group=php --with-gd --with-iconv --enable-mbstring --enable-fpm --enable-mysqlnd --with-curl --enable-session --with-mysql=shared,mysqlnd --enable-zip --with-gettext --with-openssl  --with-mysql-sock=/usr/local/php7.1.2/mysqlsockphp7.1.2  --with-pgsql --enable-mysqlnd
+ //
+
+最后这个才安装成功 没有安装gettext扩展 没有安装openssl扩展  安装后 尝试使用phpize试试
+./configure --prefix=/usr/local/php7.1.2 --exec-prefix=/usr/local/php7.1.2 --datadir=/usr/local/php7.1.2 --with-config-file-path=/usr/local/php7.1.2/etc -enable-bcmath -enable-calendar -enable-dba -enable-exif -enable-ftp -enable-gd-native-ttf -enable-mbregex -enable-mbstring -enable-shmop -enable-soap -enable-sockets -enable-sysvmsg -enable-sysvsem -enable-sysvshm -enable-wddx -enable-zip  --with-mysqli=mysqlnd --with-mhash --with-libedit   --with-pdo-mysql=mysqlnd --with-fpm-user=php --with-fpm-group=php --with-gd --with-iconv --enable-mbstring --enable-fpm --enable-mysqlnd --with-curl --enable-session --enable-zip  --with-mysql-sock=/usr/local/php7.1.2/mysqlsockphp7.1.2  --with-pgsql --enable-mysqlnd    --with-jpeg-dir=/usr/local/Cellar/jpeg --with-freetype-dir=/usr/local/Cellar/freetype
+ bogon:php-7.1.2 admindyn$ sudo make install
+ Password:
+ Installing shared extensions:     /usr/local/php7.1.2/lib/php/extensions/no-debug-non-zts-20160303/
+ Installing PHP CLI binary:        /usr/local/php7.1.2/bin/
+ Installing PHP CLI man page:      /usr/local/php7.1.2/php/man/man1/
+ Installing PHP FPM binary:        /usr/local/php7.1.2/sbin/
+ Installing PHP FPM config:        /usr/local/php7.1.2/etc/
+ Installing PHP FPM man page:      /usr/local/php7.1.2/php/man/man8/
+ Installing PHP FPM status page:   /usr/local/php7.1.2/fpm/
+ Installing phpdbg binary:         /usr/local/php7.1.2/bin/
+ Installing phpdbg man page:       /usr/local/php7.1.2/php/man/man1/
+ Installing PHP CGI binary:        /usr/local/php7.1.2/bin/
+ Installing PHP CGI man page:      /usr/local/php7.1.2/php/man/man1/
+ Installing build environment:     /usr/local/php7.1.2/lib/php/build/
+ Installing header files:           /usr/local/php7.1.2/include/php/
+ Installing helper programs:       /usr/local/php7.1.2/bin/
+   program: phpize
+   program: php-config
+ Installing man pages:             /usr/local/php7.1.2/php/man/man1/
+   page: phpize.1
+   page: php-config.1
+ Installing PEAR environment:      /usr/local/php7.1.2/lib/php/
+ [PEAR] Archive_Tar    - installed: 1.4.0
+ [PEAR] Console_Getopt - installed: 1.4.1
+ [PEAR] Structures_Graph- installed: 1.1.1
+ [PEAR] XML_Util       - installed: 1.3.0
+ [PEAR] PEAR           - installed: 1.10.1
+ Wrote PEAR system config file at: /usr/local/php7.1.2/etc/pear.conf
+ You may want to add: /usr/local/php7.1.2/lib/php to your php.ini include_path
+ /usr/local/php7.1/php-7.1.2/build/shtool install -c ext/phar/phar.phar /usr/local/php7.1.2/bin
+ ln -s -f phar.phar /usr/local/php7.1.2/bin/phar
+ Installing PDO headers:           /usr/local/php7.1.2/include/php/ext/pdo/
+ bogon:php-7.1.2 admindyn$
+
+
+
+
+
+ 这一次才发现 每次编译安装php最好保留 安装的源码
+
+ 发现 进入 include／ext目录 没有找到gettext 和 openssl 终于知道
+ 原因了 如果在安装时 ./configure 下没有配置的模块 最后生成的包
+ 的include中是没有该扩展的头文件的 因此 保留源码 为以后扩展备用
+
+
+ 尝试编译安装php后 phpize安装gettext 依旧报错 错误一样
+
+
+ bogon:gettext admindyn$ phpize
+ Configuring for:
+ PHP Api Version:         20160303
+ Zend Module Api No:      20160303
+ Zend Extension Api No:   320160303
+ bogon:gettext admindyn$ ./configure  --with-php-config=/usr/local/php7.1.2/bin/php-config
+ checking for grep that handles long lines and -e... /usr/bin/grep
+ checking for egrep... /usr/bin/grep -E
+ checking for a sed that does not truncate output... /usr/bin/sed
+ checking for cc... cc
+ checking whether the C compiler works... yes
+ checking for C compiler default output file name... a.out
+ checking for suffix of executables...
+ checking whether we are cross compiling... no
+ checking for suffix of object files... o
+ checking whether we are using the GNU C compiler... yes
+ checking whether cc accepts -g... yes
+ checking for cc option to accept ISO C89... none needed
+ checking how to run the C preprocessor... cc -E
+ checking for icc... no
+ checking for suncc... no
+ checking whether cc understands -c and -o together... yes
+ checking for system library directory... lib
+ checking if compiler supports -R... no
+ checking if compiler supports -Wl,-rpath,... yes
+ checking build system type... x86_64-apple-darwin16.3.0
+ checking host system type... x86_64-apple-darwin16.3.0
+ checking target system type... x86_64-apple-darwin16.3.0
+ checking for PHP prefix... /usr/local/php7.1.2
+ checking for PHP includes... -I/usr/local/php7.1.2/include/php -I/usr/local/php7.1.2/include/php/main -I/usr/local/php7.1.2/include/php/TSRM -I/usr/local/php7.1.2/include/php/Zend -I/usr/local/php7.1.2/include/php/ext -I/usr/local/php7.1.2/include/php/ext/date/lib
+ checking for PHP extension directory... /usr/local/php7.1.2/lib/php/extensions/no-debug-non-zts-20160303
+ checking for PHP installed headers prefix... /usr/local/php7.1.2/include/php
+ checking if debug is enabled... no
+ checking if zts is enabled... no
+ checking for re2c... re2c
+ checking for re2c version... 0.15.3 (ok)
+ checking for gawk... no
+ checking for nawk... no
+ checking for awk... awk
+ checking if awk is broken... no
+ checking for GNU gettext support... yes, shared
+ configure: error: Cannot locate header file libintl.h
+ bogon:gettext admindyn$
+
+
+尝试phpize补救openssl
+
+bogon:openssl admindyn$ mv config0.m4 config.m4
+bogon:openssl admindyn$ phpize
+Configuring for:
+PHP Api Version:         20160303
+Zend Module Api No:      20160303
+Zend Extension Api No:   320160303
+bogon:openssl admindyn$
+
+bogon:openssl admindyn$ ./configure  --with-php-config=/usr/local/php7.1.2/bin/php-config
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for cc... cc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables...
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether cc accepts -g... yes
+checking for cc option to accept ISO C89... none needed
+checking how to run the C preprocessor... cc -E
+checking for icc... no
+checking for suncc... no
+checking whether cc understands -c and -o together... yes
+checking for system library directory... lib
+checking if compiler supports -R... no
+checking if compiler supports -Wl,-rpath,... yes
+checking build system type... x86_64-apple-darwin16.3.0
+checking host system type... x86_64-apple-darwin16.3.0
+checking target system type... x86_64-apple-darwin16.3.0
+checking for PHP prefix... /usr/local/php7.1.2
+checking for PHP includes... -I/usr/local/php7.1.2/include/php -I/usr/local/php7.1.2/include/php/main -I/usr/local/php7.1.2/include/php/TSRM -I/usr/local/php7.1.2/include/php/Zend -I/usr/local/php7.1.2/include/php/ext -I/usr/local/php7.1.2/include/php/ext/date/lib
+checking for PHP extension directory... /usr/local/php7.1.2/lib/php/extensions/no-debug-non-zts-20160303
+checking for PHP installed headers prefix... /usr/local/php7.1.2/include/php
+checking if debug is enabled... no
+checking if zts is enabled... no
+checking for re2c... re2c
+checking for re2c version... 0.15.3 (ok)
+checking for gawk... no
+checking for nawk... no
+checking for awk... awk
+checking if awk is broken... no
+checking for OpenSSL support... yes, shared
+checking for Kerberos support... no
+checking whether to use system default cipher list instead of hardcoded value... no
+checking for RAND_egd... no
+checking for pkg-config... /usr/local/bin/pkg-config
+configure: error: OpenSSL version 1.0.1 or greater required.
+bogon:openssl admindyn$
+
+错误依旧
