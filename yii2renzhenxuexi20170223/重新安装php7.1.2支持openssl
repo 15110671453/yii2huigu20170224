@@ -19,8 +19,16 @@
  ./configure --prefix=/usr/local/php7.1.2 --exec-prefix=/usr/local/php7.1.2 --datadir=/usr/local/php7.1.2 --with-config-file-path=/usr/local/php7.1.2/etc -enable-bcmath -enable-calendar -enable-dba -enable-exif -enable-ftp -enable-gd-native-ttf -enable-mbregex -enable-mbstring -enable-shmop -enable-soap -enable-sockets -enable-sysvmsg -enable-sysvsem -enable-sysvshm -enable-wddx -enable-zip  --with-mysqli=mysqlnd --with-mhash --with-readline   --with-pdo-mysql=mysqlnd --with-fpm-user=php --with-fpm-group=php --with-gd --with-iconv --enable-mbstring --enable-fpm --enable-mysqlnd --with-curl --enable-session --with-mysql=shared,mysqlnd --enable-zip --with-gettext --with-openssl  --with-mysql-sock=/usr/local/php7.1.2/mysqlsockphp7.1.2  --with-pgsql --enable-mysqlnd
  //
 
-最后这个才安装成功 没有安装gettext扩展 没有安装openssl扩展  安装后 尝试使用phpize试试
-./configure --prefix=/usr/local/php7.1.2 --exec-prefix=/usr/local/php7.1.2 --datadir=/usr/local/php7.1.2 --with-config-file-path=/usr/local/php7.1.2/etc -enable-bcmath -enable-calendar -enable-dba -enable-exif -enable-ftp -enable-gd-native-ttf -enable-mbregex -enable-mbstring -enable-shmop -enable-soap -enable-sockets -enable-sysvmsg -enable-sysvsem -enable-sysvshm -enable-wddx -enable-zip  --with-mysqli=mysqlnd --with-mhash --with-libedit   --with-pdo-mysql=mysqlnd --with-fpm-user=php --with-fpm-group=php --with-gd --with-iconv --enable-mbstring --enable-fpm --enable-mysqlnd --with-curl --enable-session --enable-zip  --with-mysql-sock=/usr/local/php7.1.2/mysqlsockphp7.1.2  --with-pgsql --enable-mysqlnd    --with-jpeg-dir=/usr/local/Cellar/jpeg --with-freetype-dir=/usr/local/Cellar/freetype
+最后这个才安装成功 没有安装gettext扩展 没有安装openssl扩展  安装后 尝试使用phpize试试 缺少freetype gd库运行不正常 需要安装freetype
+./configure --prefix=/usr/local/php7.1.2 --exec-prefix=/usr/local/php7.1.2
+ --datadir=/usr/local/php7.1.2 --with-config-file-path=/usr/local/php7.1.2/etc
+ -enable-bcmath -enable-calendar -enable-dba -enable-exif -enable-ftp -enable-gd-native-ttf
+ -enable-mbregex -enable-mbstring -enable-shmop -enable-soap -enable-sockets -enable-sysvmsg
+ -enable-sysvsem -enable-sysvshm -enable-wddx -enable-zip  --with-mysqli=mysqlnd --with-mhash
+ --with-libedit   --with-pdo-mysql=mysqlnd --with-fpm-user=php --with-fpm-group=php --with-gd --with-iconv
+  --enable-mbstring --enable-fpm --enable-mysqlnd --with-curl --enable-session --enable-zip
+   --with-mysql-sock=/usr/local/php7.1.2/mysqlsockphp7.1.2  --with-pgsql --enable-mysqlnd
+   --with-jpeg-dir=/usr/local/Cellar/jpeg --with-freetype-dir=/usr/local/Cellar/freetype
  bogon:php-7.1.2 admindyn$ sudo make install
  Password:
  Installing shared extensions:     /usr/local/php7.1.2/lib/php/extensions/no-debug-non-zts-20160303/

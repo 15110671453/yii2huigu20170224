@@ -52,6 +52,16 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
+    public function actionZi(){
+        //获取子模块 参数只需要传入文章模块的id就可以了
+        $article = \YII::$app->getModule('article');
+        //调用子模块的操作 参数 runaction 执行行为 default控制器下的index 操作
+        //通过字符串的形式表示 控制器 和 操作
+        $article->runAction('default/index');
+        //这样的缺陷 本来直接的目的 是访问 article 下的default控制器 这里绕弯子了因为多访问了sitecontroller
+        //yii也提供直接访问的方式 通过url  index.php?r=article/default/index
+
+    }
 
     public function actionLogin()
     {

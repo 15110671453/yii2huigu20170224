@@ -1,0 +1,12 @@
+Last login: Mon Feb 27 18:07:25 on ttys000
+bogon:~ admindyn$ httpd -v
+Server version: Apache/2.4.23 (Unix)
+Server built:   Aug  8 2016 18:10:45
+bogon:~ admindyn$ echo $HTTPD_PATH
+/Applications/XAMPP/xamppfiles/bin/httpd
+bogon:~ admindyn$ echo $HTTPD_PATH
+/Applications/XAMPP/xamppfiles/bin/httpd
+bogon:~ admindyn$ /Applications/XAMPP/xamppfiles/bin/httpd -v
+Server version: Apache/2.4.25 (Unix)
+Server built:   Jan 20 2017 06:44:39
+bogon:~ admindyn$ 

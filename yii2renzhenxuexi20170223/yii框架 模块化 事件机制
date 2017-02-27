@@ -1,0 +1,144 @@
+yii扩展方法 yii框架 支持模块化
+
+
+
+第一：：
+
+使用模块化方式  模块化  将项目划分为独立的几个子模块
+
+博客系统  最初开始 划分子模块
+
+用户管理模块 用户增删改查 存储的 根模块这里也需要配置文件管理父模块
+users -
+       子模块：：头像管理 密码管理 。。 通过在父模块配置文件的方式来实现 模块开启与关闭的功能
+
+文章管理模块  article
+
+评论模块 comments
+
+广告模块 advertisement
+
+
+yii如何实现模块化？
+
+使用gii Module Generator 模块化 生成器
+
+ModuleClass  模块类名  模块ID
+
+填写这两个信息就可以创建新的模块 创建时 填的类的命名空间 app\modules\article\article
+对于对应的路径没有的文件夹 系统会自动帮助创建
+
+
+那么添加完模块后 该如何使用呢？
+ 'modules' => [
+        'article' => [
+            'class' => 'app\modules\article\Article',
+        ],
+    ],
+
+    添加到basic／config／web.php 中
+
+ 这里分析模块文件 每个模块都是基于MVC 设计模式 但是并没有帮助我们
+ 生成活动记录 文件  我们自己来
+
+
+ 接下来如何使用添加完的模块
+ demo 访问 article模块添加
+ http://localhost:63342/basic/web/index.php?r=site/zi
+ http://localhost:63342/basic/web/index.php?r=article/default/index
+
+第二：：事件机制
+
+使用事件机制 对代码 解耦合
+
+
+一些对象 抛出信息  一些类来监听 完成事件机制
+
+那么 如何实现抛出信息 另一个对象又如何实现监听呢
+
+
+使用一个共享数组 或者 数据库中表  扫描式
+
+
+为某一个对象预设数组 事件数组  另一些对象 与数组中一一绑定在一起 绑定式
+
+
+对于对象 有一个触发事件 它有一个触发的方法  另一个 事件数组 事件与一个对象绑定在一起
+
+对于触发一个事件 我们有一个 trigger方法 绑定我们有一个on方法  类似javascript设计
+
+
+yii框架 是如何实现trigger 和 on 方法的呢？
+
+我们把这些类写到basic的vendor下
+
+猫 老鼠 这里参考 vendor下的 Animal 文件夹下的 Cat Mourse的写法
+
+主要用到yii自带的类 yii base 下的Component类 方法绑定触发 和 Event 类传参
+
+对于触发机制 实际上yii框架的入口文件 就用的事件触发机制
+//这里 的实现 就是利用 base 下的 Application类 并且继承Component 以及用到Event类
+//这里就用到了事件触发机制
+(new yii\web\Application($config))->run();
+
+视图控制器的控制数据模型与视图也有 事件触发机制 Component 与Event 类的影子
+
+demo 访问
+http://localhost:63342/basic/web/index.php?r=animal/index
+
+第三 ：：mixin
+
+一个老化学家 左手蓝色液体 右手红色液体 两个液体混合 会触发化学反应
+
+c++语言 多重继承
+
+mixin 两种形式
+
+第一种形式：：
+类的混合
+
+程序中 有  a b c 三个类
+把这些类 通过混合的放式 将这三个类 构建出第四个类 多继承哦
+
+这趟第四个类 就拥有了前面三个类 非private的所有的属性和 方法
+
+
+类的混合 如何实现
+
+demo 访问
+http://localhost:63342/basic/web/index.php?r=animal/index
+
+第二种形式：：
+对象的混合
+
+类 生成一个对象 但是后来发现对象的方法不够用 就对类添加方法
+
+但是 该类 还有其他 实例对象 就这样一次添加进去 感觉浪费
+
+因此 让这个 以混合的方式仅向这个特殊对象注入
+
+
+对象的混合 的 依赖注入 如何实现：
+
+也是从Behavior 注入进去的
+
+
+第四 依赖注入 控制反转
+
+依赖注入
+
+yii中 容器 实现 依赖注入
+yii\di\Container
+把类与类之间的耦合关系 全部写在一个容器类中
+
+
+第二个方式 服务定位器
+服务定位器  定义 程序中所需要的服务的参数信息
+
+启动服务其实也是一个类 参数信息传给容器 容器根据参数 实例化不同的服务类
+
+容器同时也会解决依赖关系 服务定位器 主要是配置一些参数
+
+
+
+

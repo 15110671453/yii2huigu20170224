@@ -60,15 +60,6 @@ AH00015: Unable to open logs
 原以为 是这个原因 发现 并不是 检查xampp启动httpd的脚本 发现 已经指明了httpd路径
 是自己的httpd 那是什么原因呢
 
-12345678901234567:xamppfiles admindyn$ which httpd
-/usr/sbin/httpd
-12345678901234567:xamppfiles admindyn$ ./bin/httpd -v
-Server version: Apache/2.4.25 (Unix)
-Server built:   Jan 20 2017 06:44:39
-12345678901234567:xamppfiles admindyn$ 
-
-
-
 
 第三
 
