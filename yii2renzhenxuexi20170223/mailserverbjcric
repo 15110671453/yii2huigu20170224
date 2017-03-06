@@ -1,0 +1,52 @@
+Last login: Tue Feb 28 09:04:26 on console
+bogon:~ admindyn$ ping mailserver.bjcric.com
+PING mailserver.bjcric.com (220.181.179.8): 56 data bytes
+Request timeout for icmp_seq 0
+Request timeout for icmp_seq 1
+Request timeout for icmp_seq 2
+Request timeout for icmp_seq 3
+Request timeout for icmp_seq 4
+Request timeout for icmp_seq 5
+Request timeout for icmp_seq 6
+Request timeout for icmp_seq 7
+Request timeout for icmp_seq 8
+Request timeout for icmp_seq 9
+Request timeout for icmp_seq 10
+Request timeout for icmp_seq 11
+Request timeout for icmp_seq 12
+^[Request timeout for icmp_seq 13
+Request timeout for icmp_seq 14
+Request timeout for icmp_seq 15
+^C
+--- mailserver.bjcric.com ping statistics ---
+17 packets transmitted, 0 packets received, 100.0% packet loss
+bogon:~ admindyn$ ping bjcric.com
+PING bjcric.com (211.100.61.177): 56 data bytes
+64 bytes from 211.100.61.177: icmp_seq=0 ttl=53 time=5.425 ms
+64 bytes from 211.100.61.177: icmp_seq=1 ttl=53 time=4.990 ms
+64 bytes from 211.100.61.177: icmp_seq=2 ttl=53 time=5.744 ms
+64 bytes from 211.100.61.177: icmp_seq=3 ttl=53 time=5.180 ms
+64 bytes from 211.100.61.177: icmp_seq=4 ttl=53 time=5.558 ms
+64 bytes from 211.100.61.177: icmp_seq=5 ttl=53 time=5.589 ms
+64 bytes from 211.100.61.177: icmp_seq=6 ttl=53 time=5.486 ms
+64 bytes from 211.100.61.177: icmp_seq=7 ttl=53 time=5.666 ms
+64 bytes from 211.100.61.177: icmp_seq=8 ttl=53 time=5.735 ms
+^C
+--- bjcric.com ping statistics ---
+9 packets transmitted, 9 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 4.990/5.486/5.744/0.240 ms
+bogon:~ admindyn$ ping bjcric1.com
+PING bjcric1.com (192.168.3.20): 56 data bytes
+64 bytes from 192.168.3.20: icmp_seq=0 ttl=128 time=0.960 ms
+64 bytes from 192.168.3.20: icmp_seq=1 ttl=128 time=0.493 ms
+64 bytes from 192.168.3.20: icmp_seq=2 ttl=128 time=106.590 ms
+64 bytes from 192.168.3.20: icmp_seq=3 ttl=128 time=0.627 ms
+64 bytes from 192.168.3.20: icmp_seq=4 ttl=128 time=0.730 ms
+64 bytes from 192.168.3.20: icmp_seq=5 ttl=128 time=0.720 ms
+64 bytes from 192.168.3.20: icmp_seq=6 ttl=128 time=0.599 ms
+64 bytes from 192.168.3.20: icmp_seq=7 ttl=128 time=0.731 ms
+64 bytes from 192.168.3.20: icmp_seq=8 ttl=128 time=0.726 ms
+64 bytes from 192.168.3.20: icmp_seq=9 ttl=128 time=0.659 ms
+^Z
+[1]+  Stopped                 ping bjcric1.com
+bogon:~ admindyn$

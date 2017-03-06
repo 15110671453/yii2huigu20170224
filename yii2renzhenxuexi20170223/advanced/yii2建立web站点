@@ -1,0 +1,193 @@
+yii2 的重要核心文件夹vendor目录
+
+该目录包含yii核心类 与  相关的文件
+
+
+使用yii2建立自己的web站点
+
+流程1：
+
+选择项目根目录 建立文件夹home
+在home文件夹下建立 config配置文件夹
+在home文件夹下建立 controllers控制器文件夹
+在home文件夹下建立 views视图文件夹
+
+
+流程2：
+在项目根目录下 建立 项目的入口文件
+
+index.php
+
+流程3： 加载yii框架的核心类 与 自动加载类
+
+入口文件 编码：
+
+//载入自动载入文件类
+require (__DIR__.'/vendor/autoload.php');
+
+编写完 入口文件
+
+启动服务器 访问 404
+Not Found (#404)
+
+Page not found.
+The above error occurred while the Web server was processing your request.
+
+Please contact us if you think this is a server error. Thank you.
+
+需要编写控制器文件 才可以
+
+//
+流程4 设置别名 以及指定命名空间
+
+考虑 程序 没有找到程序home文件夹  在配置文件中 编写相应的别名 并指明入口文件的命名空间
+
+解决404  成功执行入口文件
+
+
+流程5  编写配置文件  随着程序功能增加 我们配置项增多
+
+我们需要建立配置文件 来管理
+
+在config文件夹下 建立web.php配置文件
+
+从入口文件 将$config移到该文件
+
+并在入口文件 引入
+
+启动 访问 再次出现404 注意 因为修改了入口文件的 配置文件 所在目录
+
+那么配置文件中 配置项 对应的项目路径相对路径 改变 导致访问出错
+
+修改访问路径
+$config =[
+    'id' => 'app-home',
+    'basePath' => dirname(__DIR__),
+    'aliases'=>[
+//        '@home'=>__DIR__.'/home',
+    //修改项
+        '@home'=>dirname(__DIR__),
+
+    ],
+    'controllerNamespace'=>'home\controllers',
+
+
+
+];
+
+return $config;
+
+
+流程6  建立相应的视图文件
+
+建立视图文件  访问时 先访问控制器 再调用控制器中方法
+我们现在 要让它调用相应的视图文件
+
+使用当前实例 调用一个方法 方法传入视图文件的名称作为参数
+
+也就是视图文件起的名字要和这里的参数名一致
+
+另外 在views视图文件夹 创建视图时  先创建视图文件对应的控制器名一致的文件夹 再在
+该文件夹下建立视图文件
+
+
+
+测试
+View not Found
+
+An internal server error occurred.
+The above error occurred while the Web server was processing your request.
+
+Please contact us if you think this is a server error. Thank you.
+
+
+但是访问仍旧view not found
+因为yii默认在载入视图文件前 会载入布局文件 我们需要先关闭访问布局文件
+
+以后会建立对应的布局文件 再打开
+
+在配置文件 设置 不载入布局文件
+
+流程7  建立布局文件
+
+开启载入布局文件
+
+编写布局文件  布局文件 也要放在视图文件夹views内
+也要建立文件夹layouts 并建立布局文件
+布局文件的名称 是固定的 main.php
+
+建立后 测试 发现 界面 只出现布局文件内容
+
+如何让布局文件和视图文件 协同合作呢
+
+需要用到内置的变量 $content
+调用该变量 echo 输出
+
+
+流程8 ：：：：给视图文件 传递参数
+
+通过控制器相应的方法 调用视图文件 在调用时  我们可以传入 相应的参数
+
+我们定义一个变量 变量是一个数组  将这个变量 放到 调用视图方法的第二个参数
+
+即可
+
+同时在视图文件调用
+
+
+流程9  给布局文件传入参数
+
+我们使用布局文件 默认参数 title
+使用$this->title 传
+
+但是我们使用自定义的参数名
+
+却报错
+
+那么如何自定义 传布局文件参数呢
+
+布局文件 有一个专门的属性
+$this->params 来接受 视图文件传递过来的参数列表
+
+访问只需要$this->params['key']  加参数键名 即可访问到数据
+
+如果我们使用这个访问 但是视图文件没有 传递该参数
+
+会怎样 发现会报错 error8
+
+我们需要加判断 isset
+
+流程9  应用程序的参数
+
+我们站点的管理员名称  管理员邮箱
+
+放到 配置文件中
+
+使用params=[] 数组
+
+因为 这是一个应用程序 应用程序 在入口文件实例化
+
+要想调用它 我们可以调用应用程序 对应的静态方法
+Yii::$app->params['adminEmail'];
+
+
+流程10  ---- 到目前为止 我们这个程序已经可以正常运行了
+
+但是 为了让程序更好 我们需要管理 图片 视频 样式表 等
+
+需要建立资源文件夹 文件夹名字 web 默认使用名字 web 命名
+我们建立在项目根目录下
+
+建立样式表
+
+编写完样式表  需要载入到视图文件
+
+这里需要考虑 如何载入 资源文件夹 是和 入口文件 有关系的
+它是根据入口文件来定义位置的 和视图文件所在路径没关系
+它是相对入口文件 设置路径即可
+
+<link rel="stylesheet" href="./web/index.css">
+
+至于说js 或 图片的 载入 路径 也是一样的
+
+

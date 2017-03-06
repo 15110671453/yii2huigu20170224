@@ -1,0 +1,29 @@
+在 Yii2 中，一个别名必须以 @ 字符开头，Yii2 预定义了大量可用的别名，预定义的别名如下：
+
+@yii 表示Yii框架所在的目录，也是 BaseYii.php 文件所在的位置
+@app 表示正在运行的应用的根目录
+@vendor 表示Composer 第三方库所在目录，一般是 @app/vendor 或 @app/../vendor
+@bower 表示 Bower 第三方库所在目录，一般是 @vendor/bower
+@npm 表示 NPM 第三方库所在目录，一般是 @vendor/npm
+@runtime 表示正在运行的应用的运行时用于存放运行时文件的目录，一般是 @app/runtime
+@webroot 表示正在运行的应用的入口文件 index.php 所在的目录，一般是 @app/web
+@web URL别名，表示当前应用的根URL，主要用于前端
+@common 表示通用文件夹
+@frontend 表示前台应用所在的文件夹
+@backend 表示后台应用所在的文件夹
+@console 表示命令行应用所在的文件夹
+其他使用Composer安装的Yii扩展注册的二级别名
+其中的 @common @frontend @backend 和 @console 在 baisc 的项目中是不会存在的。在 advanced 的项目中通常是定义在 common\config\bootstrap.php 文件中
+
+
+
+
+@yii, BaseYii.php 文件所在的目录（也被称为框架安装目录）
+@app, 当前运行的应用 yii\base\Application::basePath
+@runtime, 当前运行的应用的 yii\base\Application::runtimePath. Defaults to @app/runtime.
+@webroot, the Web root directory of the currently running Web application. It is determined based on the directory containing the entry script.
+@web,the base URL of the currently running Web application. It has the same value as yii\web\Request::baseUrl.
+@vendor,yii\base\Application::vendorPath. Defaults to @app/vendor.
+@bower, the root directory that contains bower packages. Defaults to @vendor/bower.
+@npm, the root directory that contains npm packages. Defaults to @vendor/npm.
+@yii 别名是在入口脚本里包含 Yii.php 文件时定义的， 其他的别名都是在配置应用的时候， 于应用的构造方法内定义的。

@@ -1,0 +1,20 @@
+使用 xampp 提供的php程序
+
+解决
+
+
+The OpenSSL PHP extension is required by Yii2.bogon:advanced admindyn$ /Applications/XAMPP/xamppfiles/bin/php init
+Yii Application Initialization Tool v1.0
+
+Which environment do you want the application to be initialized in?
+
+  [0] Development
+  [1] Production
+
+  Your choice [0-1, or "q" to quit] 0
+
+  Initialize the application under 'Development' environment? [yes|no]
+
+
+
+
