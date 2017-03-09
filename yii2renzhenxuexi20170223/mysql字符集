@@ -1,0 +1,50 @@
+从以上信息可知数据库的编码为latin1，需要修改为gbk或者是utf8； 
+其中，character_set_client为客户端编码方式；character_set_connection为建立连接使用的编码；character_set_database数据库的编码； 
+character_set_results结果集的编码； 
+character_set_server数据库服务器的编码； 
+只要保证以上四个采用的编码方式一样，就不会出现乱码问题。
+
+mysql> set global character_set_server=utf8;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> set global character_set_database=utf8;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show variables like '%char%';
+
+
+thief-MBP:mysql thief$ pwd
+/usr/local/mysql
+thief-MBP:mysql thief$ vi my.cnf 
+thief-MBP:mysql thief$
+thief-MBP:mysql thief$ vi my.cnf 
+thief-MBP:mysql thief$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 33
+Server version: 5.6.26 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show variables like '%char%';
++--------------------------+--------------------------------------------------------+
+| Variable_name            | Value                                                  |
++--------------------------+--------------------------------------------------------+
+| character_set_client     | utf8                                                   |
+| character_set_connection | utf8                                                   |
+| character_set_database   | utf8                                                   |
+| character_set_filesystem | binary                                                 |
+| character_set_results    | utf8                                                   |
+| character_set_server     | utf8                                                   |
+| character_set_system     | utf8                                                   |
+| character_sets_dir       | /usr/local/mysql-5.6.26-osx10.8-x86_64/share/charsets/ |
++--------------------------+--------------------------------------------------------+
+8 rows in set (0.00 sec)
+
+mysql> 
